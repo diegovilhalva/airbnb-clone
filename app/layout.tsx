@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 
 export const metadata: Metadata = {
-  title: "Airbnb | Locações por temporada,chalés,casas de campo e muito mais.",
+  title: "Airbnb | Locações por temporada,chalés,casas de praia e muito mais.",
   description: "Airbnb encontre sua próxima jornada",
 };
 
