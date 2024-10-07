@@ -33,7 +33,7 @@ const Modal = ({ actionLabel, onClose, onSubmit, body, disabled, footer, isOpen,
 
         setTimeout(() => {
             onClose()
-        }, 3000)
+        }, 300)
 
     }, [disabled, onClose])
 
@@ -80,7 +80,6 @@ const Modal = ({ actionLabel, onClose, onSubmit, body, disabled, footer, isOpen,
                                         onClick={handleSubmit} />
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
