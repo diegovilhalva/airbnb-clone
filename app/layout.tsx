@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import {Nunito} from "next/font/google"
+import { Nunito } from "next/font/google"
 import "./globals.css";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "../components/Navbar/Navbar";
+import ClientOnly from "../components/ClientOnly";
+import Modal from "@/components/Modals/Modal";
 
 
 
@@ -10,8 +12,8 @@ export const metadata: Metadata = {
   description: "Airbnb encontre sua próxima jornada",
 };
 
-const font  = Nunito({
-  subsets:["latin"],
+const font = Nunito({
+  subsets: ["latin"],
 })
 
 export default function RootLayout({
@@ -24,7 +26,10 @@ export default function RootLayout({
       <body
         className={font.className}
       >
-        <Navbar/>
+        <ClientOnly>
+          <Modal actionLabel="Enviar" isOpen title="Hello World" />
+          <Navbar />
+        </ClientOnly>
         {children}
       </body>
     </html>
