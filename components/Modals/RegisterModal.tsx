@@ -9,6 +9,8 @@ import useRegisterModal from "@/app/hooks/useregisterModal"
 import Modal from "./Modal"
 import Heading from "../Heading"
 import Input from "../Inputs/Input"
+import toast from "react-hot-toast"
+import Button from "../Button"
 
 const RegisterModal = () => {
 
@@ -33,7 +35,7 @@ const RegisterModal = () => {
       registerModal.onClose()
     })
     .catch((error) => {
-      console.log(error)
+      toast.error("Ocorreu um erro!")
     })
     .finally(() => {
       setIsLoading(false)
@@ -43,7 +45,29 @@ const RegisterModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Bem vindo ao Airbnb" subtitle="Criar conta" />
-      <Input />
+      <Input id="email" label="Email" disabled={isLoading} errors={errors} register={register} required />
+      <Input id="name" label="Nome" disabled={isLoading} errors={errors} register={register} required />
+      <Input id="password" label="Senha" type="password" disabled={isLoading} errors={errors} register={register} required />
+    </div>
+  )
+
+
+  const footerContent = (
+    <div className="flex flex-col gap-4 mt-3">
+      <hr />
+      <Button outline label="Continuar com Google" icon={FcGoogle} onClick={() => {}} />
+      <Button outline label="Continuar com Github" icon={AiFillGithub} onClick={() => {}} />
+      <div className="text-neutral-500 text-center font-light">
+        <div>
+          Já possui uma conta? {" "}
+          <span
+            onClick={registerModal.onClose}
+            className="text-neutral-800 cursor-pointer hover:underline"
+          >
+            Fazer login
+          </span>
+        </div>
+      </div>
     </div>
   )
   return (
@@ -55,6 +79,7 @@ const RegisterModal = () => {
     onClose={registerModal.onClose}
     onSubmit={handleSubmit(onSubmit)}
     body={bodyContent}
+    footer={footerContent}
      />
   )
 }
