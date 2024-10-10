@@ -23,7 +23,7 @@ export const categories = [
       description: "Essa propriedade utiliza energia sustentável!",
     },
     {
-      label: "Retiro Urbano",
+      label: "Urbano",
       icon: MdOutlineVilla,
       description: "Essa propriedade oferece uma estadia moderna na cidade!",
     },
@@ -33,7 +33,7 @@ export const categories = [
       description: "Essa propriedade está localizada em uma área rural tranquila!",
     },
     {
-      label: "Piscinas Privadas",
+      label: "Piscinas",
       icon: TbPool,
       description: "Essa propriedade tem uma piscina privativa luxuosa!",
     },
@@ -43,7 +43,7 @@ export const categories = [
       description: "Essa propriedade fica em uma ilha deslumbrante!",
     },
     {
-      label: "Beira do Lago",
+      label: "Lago",
       icon: GiBoatFishing,
       description: "Essa propriedade está localizada à beira de um lago sereno!",
     },
