@@ -6,6 +6,8 @@ import Heading from "../Heading"
 import { categories } from "../Navbar/Categories"
 import CategoryInput from "../Inputs/CategoryInput"
 import { FieldValues, useForm } from "react-hook-form"
+import CountrySelect from "../Inputs/CountrySelect"
+import dynamic from "next/dynamic"
 
 enum STEPS {
   CATEGORY = 0,
@@ -45,7 +47,15 @@ const RentModal = () => {
   })
 
   const category = watch('category')
+  const location = watch('location')
 
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../Map"), {
+        ssr: false,
+      }),
+    [location]
+  );
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
@@ -76,7 +86,7 @@ const RentModal = () => {
     }
 
     return "Voltar"
-  }, [])
+  }, [step])
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
@@ -84,15 +94,29 @@ const RentModal = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
         {categories.map((item, index) => (
           <div key={index} className="col-span-1">
-            <CategoryInput onClick={(category) => setCustomValue('category',category)} selected={category === item.label} label={item.label} icon={item.icon} />
+            <CategoryInput onClick={(category) => setCustomValue('category',category)} 
+            selected={category === item.label} label={item.label} icon={item.icon} />
           </div>
         ))}
       </div>
     </div>
   )
 
+  if(step === STEPS.LOCATION){
+    bodyContent =   (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Onde seu espaço está localizado?" 
+          subtitle="Ajude os hóspedes a te encontrar"
+         />
+         <CountrySelect  onChange={(value) => setCustomValue('location',value)} value={location} />
+        <Map center={location?.latlng} />
+      </div>
+    )
+  }
+
   return (
-    <Modal isOpen={rentModal.isOpen} onClose={rentModal.onClose} onSubmit={rentModal.onClose} title="Anuncie seu espaço no Airbnb" actionLabel={actionLabel} secondaryActionLabel={secondaryActionLabel} secondaryAction={step === STEPS.CATEGORY ? undefined : onBack} body={bodyContent} />
+    <Modal isOpen={rentModal.isOpen} onClose={rentModal.onClose} onSubmit={onNext} title="Anuncie seu espaço no Airbnb" actionLabel={actionLabel} secondaryActionLabel={secondaryActionLabel} secondaryAction={step === STEPS.CATEGORY ? undefined : onBack} body={bodyContent} />
   )
 }
 
