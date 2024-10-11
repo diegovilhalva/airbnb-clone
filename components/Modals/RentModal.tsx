@@ -9,6 +9,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import CountrySelect from "../Inputs/CountrySelect"
 import dynamic from "next/dynamic"
 import Counter from "../Inputs/Counter"
+import ImageUpload from "../Inputs/ImageUpload"
 
 enum STEPS {
   CATEGORY = 0,
@@ -24,7 +25,7 @@ const RentModal = () => {
 
   const [step, setStep] = useState(STEPS.CATEGORY)
 
-  const { 
+  const {
     register,
     handleSubmit,
     setValue,
@@ -34,16 +35,16 @@ const RentModal = () => {
     },
     reset
   } = useForm<FieldValues>({
-    defaultValues:{
-      category:"",
-      location:null,
-      guestCount:1,
-      roomCount:1,
-      bathroomCount:1,
-      imageSrc:'',
-      price:1,
-      title:'',
-      description:''
+    defaultValues: {
+      category: "",
+      location: null,
+      guestCount: 1,
+      roomCount: 1,
+      bathroomCount: 1,
+      imageSrc: '',
+      price: 1,
+      title: '',
+      description: ''
     }
   })
 
@@ -52,7 +53,8 @@ const RentModal = () => {
   const guestCount = watch("guestCount")
   const roomCount = watch("roomCount")
   const bathroomCount = watch("bathroomCount")
-  const Map = useMemo(
+  const imageSrc = watch("imageSrc")
+  const Map = useMemo(  
     () =>
       dynamic(() => import("../Map"), {
         ssr: false,
@@ -97,22 +99,22 @@ const RentModal = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
         {categories.map((item, index) => (
           <div key={index} className="col-span-1">
-            <CategoryInput onClick={(category) => setCustomValue('category',category)} 
-            selected={category === item.label} label={item.label} icon={item.icon} />
+            <CategoryInput onClick={(category) => setCustomValue('category', category)}
+              selected={category === item.label} label={item.label} icon={item.icon} />
           </div>
         ))}
       </div>
     </div>
   )
   console.log(location)
-  if(step === STEPS.LOCATION){
-    bodyContent =   (
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Onde seu espaço está localizado?" 
+          title="Onde seu espaço está localizado?"
           subtitle="Ajude os hóspedes a te encontrar"
-         />
-         <CountrySelect  onChange={(value) => setCustomValue('location',value)} value={location} />
+        />
+        <CountrySelect onChange={(value) => setCustomValue('location', value)} value={location} />
         <Map center={location?.latlng} />
       </div>
     )
@@ -147,6 +149,21 @@ const RentModal = () => {
         />
       </div>
     );
+  }
+
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Adicione uma foto do seu espaço"
+          subtitle="Mostre como é o seu espaço"
+          
+        />
+        <ImageUpload
+        value={imageSrc} 
+        onChange={(value) => setCustomValue("imageSrc",value)}/>
+      </div>
+    )
   }
 
 
