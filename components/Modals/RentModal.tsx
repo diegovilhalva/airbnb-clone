@@ -8,6 +8,7 @@ import CategoryInput from "../Inputs/CategoryInput"
 import { FieldValues, useForm } from "react-hook-form"
 import CountrySelect from "../Inputs/CountrySelect"
 import dynamic from "next/dynamic"
+import Counter from "../Inputs/Counter"
 
 enum STEPS {
   CATEGORY = 0,
@@ -48,7 +49,9 @@ const RentModal = () => {
 
   const category = watch('category')
   const location = watch('location')
-
+  const guestCount = watch("guestCount")
+  const roomCount = watch("roomCount")
+  const bathroomCount = watch("bathroomCount")
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
@@ -101,7 +104,7 @@ const RentModal = () => {
       </div>
     </div>
   )
-
+  console.log(location)
   if(step === STEPS.LOCATION){
     bodyContent =   (
       <div className="flex flex-col gap-8">
@@ -114,6 +117,38 @@ const RentModal = () => {
       </div>
     )
   }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Compartilhe informaççoe sobre seu espaço"
+          subtitle="Quais são a comodidades do espaço?"
+        />
+        <Counter
+          title="Hóspedes"
+          subtitle="Quantos hóspedes são permitidos?"
+          value={guestCount}
+          onChange={(value) => setCustomValue("guestCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Quartos"
+          subtitle="Quantos quartos o espaço tem?"
+          value={roomCount}
+          onChange={(value) => setCustomValue("roomCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Banheiros"
+          subtitle="Quantos banheiros o espaço tem?"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue("bathroomCount", value)}
+        />
+      </div>
+    );
+  }
+
 
   return (
     <Modal isOpen={rentModal.isOpen} onClose={rentModal.onClose} onSubmit={onNext} title="Anuncie seu espaço no Airbnb" actionLabel={actionLabel} secondaryActionLabel={secondaryActionLabel} secondaryAction={step === STEPS.CATEGORY ? undefined : onBack} body={bodyContent} />

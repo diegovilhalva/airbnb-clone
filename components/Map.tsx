@@ -21,6 +21,7 @@ interface MapProps {
 }
 
 const Map = ({center,locationValue}:MapProps) => {
+    console.log(center)
   return (
     <MapContainer
     center={(center as L.LatLngExpression) || [51, -0.09]}
