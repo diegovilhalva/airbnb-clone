@@ -1,8 +1,8 @@
 "use client"
 
 import useCountries from "@/app/hooks/useCountries"
-import { SafeUser } from "@/app/types"
-import { Listing, Reservation } from "@prisma/client"
+import { safeListing, SafeUser } from "@/app/types"
+import {  Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo } from "react"
 import {format} from "date-fns"
@@ -11,7 +11,7 @@ import Image from "next/image"
 import HeartButton from "../HeartButton"
 import Button from "../Button"
 interface ListingCardProps {
-    data:Listing
+    data:safeListing
     reservation?:Reservation
     onAction?:(id:string) => void
     disabled?:boolean
@@ -54,7 +54,7 @@ const ListingCard = ({data,reservation,onAction,actionLabel,actionId = "",curren
 
     },[reservation])
   return (
-    <div className="col-span-1 cursor-pointer group" onClick={() => router.push(`/listing/${data.id}`)}>
+    <div className="col-span-1 cursor-pointer group" onClick={() => router.push(`/listings/${data.id}`)}>
         <div className="fle flex-col gap-2 w-full">
             <div className="aspect-square w-full relative overflow-hidden rounded-xl">
                 <Image alt={data.title} fill src={data.imageSrc} className="object-cover w-full h-full group-hover:scale-110 transition" />
@@ -74,7 +74,7 @@ const ListingCard = ({data,reservation,onAction,actionLabel,actionId = "",curren
                 </div>
                 {!reservation && (
                     <div className="font-light">
-                        Diária
+                        Noite
                     </div>
                 )}
             </div>
