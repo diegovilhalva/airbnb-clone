@@ -1,7 +1,7 @@
 "use client";
 
 import useLoginModel from "@/app/hooks/useLoginModal";
-import { SafeUser, safeListing } from "@/app/types";
+import { SafeReservation, SafeUser, safeListing } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ const initialDateRange = {
 };
 
 type Props = {
-  reservations?:Reservation[];
+  reservations?:SafeReservation[];
   listing: safeListing & {
     user: SafeUser;
   };
