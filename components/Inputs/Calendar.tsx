@@ -14,6 +14,7 @@ interface CalendarProps {
 }
 
 function Calendar({ value, onChange, disabledDates }: CalendarProps) {
+  console.log(value)
   return (
     <DateRange
       rangeColors={["#262626"]}
