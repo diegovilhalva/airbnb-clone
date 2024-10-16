@@ -54,7 +54,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                         {currentUser ? (
                             <>
                                 <MenuItem onClick={() => router.push("/trips")} label="Viagens" />
-                                <MenuItem onClick={() => { }} label="Favoritos" />
+                                <MenuItem onClick={() => router.push("/favorites")} label="Favoritos" />
                                 <MenuItem onClick={() => router.push("/reservations")} label="Reservas" />
                                 <MenuItem onClick={() => { }} label="Minhas propriedades" />
                                 <MenuItem onClick={onRent} label="Anuncie seu espaço no Airbnb" />
