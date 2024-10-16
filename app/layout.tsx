@@ -9,6 +9,7 @@ import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "@/components/Modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "@/components/Modals/RentModal";
+import SearchModal from "@/components/Modals/SearchModal";
 
 
 
@@ -35,6 +36,7 @@ export default async function RootLayout({
       >
         <ClientOnly>
           <ToasterProvider />
+          <SearchModal />
           <RentModal />
           <RegisterModal />
           <LoginModal />
